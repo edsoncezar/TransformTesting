@@ -5,10 +5,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import weka.core.matrix.Matrix;
 
 /**
@@ -33,32 +35,14 @@ import weka.core.matrix.Matrix;
  */
 public class Kmeans {
 
-	/**
-	 * Sorted List of pixels in a picture.
-	 */
-	private ArrayList<Point> pixels = new ArrayList<Point>();
-
-	/**
-	 * kmeans
-	 */
-	private int numberOfColorsKmeans;
-
-	/**
-	 * clusters
-	 */
-	private Cluster[] clusters;
-
-	/**
-	 * image
-	 */
-	private BufferedImage image = null;
+	private KmeansData data = new KmeansData(new ArrayList<Point>(), null);
 
 	/**
 	 *
 	 */
 	public Kmeans(int kmeans, BufferedImage imageKmeans) {
-		numberOfColorsKmeans = kmeans;
-		image = imageKmeans;
+		data.numberOfColorsKmeans = kmeans;
+		data.image = imageKmeans;
 		for (int x = 0; x < imageKmeans.getWidth(); x++) {
 			for (int y = 0; y < imageKmeans.getHeight(); y++) {
 				int color = imageKmeans.getRGB(x, y);
@@ -67,7 +51,7 @@ public class Kmeans {
 				green = (color >> 8) & 0xFF;
 				red = (color >> 16) & 0xFF;
 				double[][] colorOfArray = { { red, green, blue } };
-				pixels.add(new Point(new Matrix(colorOfArray), x, y));
+				data.pixels.add(new Point(new Matrix(colorOfArray), x, y));
 			}
 		}
 	}
@@ -109,7 +93,7 @@ public class Kmeans {
 	public ArrayList<Point> getPoints() {
 		doKMeans();
 		ArrayList<Point> points = new ArrayList<Point>();
-		for (Cluster cluster : clusters) {
+		for (Cluster cluster : data.clusters) {
 			points.addAll(cluster.getMembers());
 		}
 		return points;
@@ -119,12 +103,12 @@ public class Kmeans {
 	 * @return
 	 */
 	private BufferedImage paint() {
-		for (Cluster c : clusters) {
+		for (Cluster c : data.clusters) {
 			for (Point p : c.getMembers()) {
-				image.setRGB(p.getX(), p.getY(), c.getRGB() < 0 ? 0 : c.getRGB());
+				data.image.setRGB(p.getX(), p.getY(), c.getRGB() < 0 ? 0 : c.getRGB());
 			}
 		}
-		return image;
+		return data.image;
 	}
 
 	/**
@@ -133,7 +117,7 @@ public class Kmeans {
 	private void doKMeans() {
 
 		Matrix[] matrixKmeans = createColors();
-		clusters = new Cluster[numberOfColorsKmeans];
+		data.clusters = new Cluster[data.numberOfColorsKmeans];
 
 		System.out.println("Before the kmeans algorithm");
 
@@ -141,17 +125,17 @@ public class Kmeans {
 			System.out.println("--------------------->");
 
 			for (int i = 0; i < matrixKmeans.length; i++) {
-				clusters[i] = new Cluster(matrixKmeans[i]);
+				data.clusters[i] = new Cluster(matrixKmeans[i]);
 			}
 
-			for (Point point : pixels) {
+			for (Point point : data.pixels) {
 				addToNearestCluster(point);
 			}
 		}
 	}
 
 	private Matrix[] createColors() {
-		Matrix[] matrixKmeans = new Matrix[numberOfColorsKmeans];
+		Matrix[] matrixKmeans = new Matrix[data.numberOfColorsKmeans];
 
 		double[][] ball = { { 255, 0, 0 } };
 		matrixKmeans[0] = new Matrix(ball);
@@ -183,7 +167,7 @@ public class Kmeans {
 		double entfernung = Double.MAX_VALUE;
 		Cluster temp = null;
 
-		for (Cluster cluster : clusters) {
+		for (Cluster cluster : data.clusters) {
 			double distance = point.getRgb().minus(cluster.getMatrix()).normF();
 			if (distance < entfernung) {
 				entfernung = distance;
@@ -193,28 +177,5 @@ public class Kmeans {
 		temp.addMember(point);
 	}
 
-	public ArrayList<Point> getPixels() {
-		return pixels;
-	}
-
-	public void setPixels(ArrayList<Point> pixels) {
-		this.pixels = pixels;
-	}
-
-	public int getNumberOfColorsKmeans() {
-		return numberOfColorsKmeans;
-	}
-
-	public void setNumberOfColorsKmeans(int numberOfColorsKmeans) {
-		this.numberOfColorsKmeans = numberOfColorsKmeans;
-	}
-
-	public BufferedImage getImage() {
-		return image;
-	}
-
-	public void setImage(BufferedImage image) {
-		this.image = image;
-	}
 
 }

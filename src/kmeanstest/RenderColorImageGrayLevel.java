@@ -60,13 +60,13 @@ public class RenderColorImageGrayLevel {
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(pane, BorderLayout.CENTER);
 		frame.pack();
-		frame.setTitle("TONS DE CINZA");
+		frame.setTitle("SHADES OF GRAY");
 		frame.setVisible(true);
 
 		JFrame frame1 = new JFrame();
 		frame1.getContentPane().add(paneN, BorderLayout.CENTER);
 		frame1.pack();
-		frame1.setTitle("FOTO ORIGINAL");
+		frame1.setTitle("ORIGINAL PICTURE");
 		frame1.setVisible(true);
 
 	}

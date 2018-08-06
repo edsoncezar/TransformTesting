@@ -75,7 +75,7 @@ public class RenderEdgeDetection {
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(pane, BorderLayout.CENTER);
 		frame.pack();
-		frame.setTitle("EDGE DETECTTION");
+		frame.setTitle("EDGE DETECTION");
 		frame.setVisible(true);
 
 		JFrame frame1 = new JFrame();

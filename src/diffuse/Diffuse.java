@@ -26,6 +26,11 @@ import com.sun.media.jai.widget.DisplayJAI;
  */
 public class Diffuse extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5046692423398569947L;
+
 	private static String pictureToTransform = "images/mostri.jpg";
 	
 	private static String pictureToTransformTwo = "images/mostri.png";

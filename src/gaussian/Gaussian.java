@@ -27,6 +27,11 @@ import com.sun.media.jai.widget.DisplayJAI;
  */
 public class Gaussian extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1523329478849673875L;
+	
 	private static String pictureToTransform = "images/folle.jpg";
 
 	public static void main(String[] args) throws IOException {

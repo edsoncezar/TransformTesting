@@ -65,28 +65,24 @@ public class Tritone extends JPanel {
 	}
 
 	public static void main(String s[]) {
+		
 		JFrame frame1 = new JFrame("STARLING");
+		renderFrame(frame1, "images/startling.jpeg");
+		
+		JFrame frame2 = new JFrame("STARLING 1");
+		renderFrame(frame2, "images/startling1.jpg");
+		
+		JFrame frame3 = new JFrame("STARLING 2");
+		renderFrame(frame3, "images/startling2.jpg");
+	}
+
+	private static void renderFrame(JFrame frame1, String image) {
+		
 		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame1.getContentPane().add("Center", new Tritone("images/startling.jpeg"));
+		frame1.getContentPane().add("Center", new Tritone(image));
 		frame1.pack();
 		frame1.setSize(new Dimension(700, 500));
 		frame1.setVisible(true);
-		
-		JFrame frame2 = new JFrame("STARLING 1");
-		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		frame2.getContentPane().add("Center", new Tritone("images/startling1.jpg"));
-		frame2.pack();
-		frame2.setSize(new Dimension(700, 500));
-		frame2.setVisible(true);
-		
-		JFrame frame3 = new JFrame("STARLING 2");
-		frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		frame3.getContentPane().add("Center", new Tritone("images/startling2.jpg"));
-		frame3.pack();
-		frame3.setSize(new Dimension(700, 500));
-		frame3.setVisible(true);
 	}
 }

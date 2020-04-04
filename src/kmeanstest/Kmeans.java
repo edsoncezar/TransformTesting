@@ -2,6 +2,7 @@ package kmeanstest;
 
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +58,8 @@ public class Kmeans {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String[] files = { "images/rider.jpg", "images/honey.jpg" };
+		String[] files = { "images/edson.jpg", "images/honey.jpg" };
+		//String[] files = { "images/edson.jpg"};
 
 		for (String filestring : files) {
 
@@ -78,6 +80,8 @@ public class Kmeans {
 			frame.getContentPane().add(labelTwo, BorderLayout.WEST);
 			frame.pack();
 			frame.setVisible(true);
+			
+			//ImageIO.write((RenderedImage) imageDisplayOne.getImage(), "PNG", new File("images/rendered_edson.png"));
 		}
 	}
 
